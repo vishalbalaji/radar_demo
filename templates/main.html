@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/main.css') }}"
+  />
+    <title>ADRS</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidenav">
+        <div class="nav-content">
+          <div class="block title-content">
+						<h1>RADAR</h1>
+            <div class="user-wrapper">
+              <div class="user">{{ username }}</div>
+              <a href="/logout"><div class="logout-button">Logout</div></a>
+ 
+            </div>
+          </div>
+          <div class="block buttons">
+            <div class="button-loader-wrapper load-wrapper">
+              <form
+                action="/main"
+                method="POST"
+                enctype="multipart/form-data"
+                class="image-upload"
+                id="image-upload"
+              >
+                <input type="file" name="file" id="upload-file" />
+              </form>
+              <label for="upload-file" class="button load-button" id="load-button"
+                >Load Image</label
+              >
+              <div class="spinner upload-spinner" id="upload-spinner"></div>
+            </div>
+          </div>
+          <div class="block selectors">
+            <div class="selection-wrapper penetrometer-selection-wrapper">
+              <h2>Select Penetrometer type</h2>
+              <form
+                action="/main"
+                id="pene-form"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+              <select name="pene-type" id="pene-select" class="selector">
+                <option value="penetrometer 5">Penetrometer 5</option>
+                <option value="penetrometer 7">Penetrometer 7</option>
+                <option value="penetrometer 10">Penetrometer 10</option>
+                <option value="penetrometer 12">Penetrometer 12</option>
+                <option value="penetrometer 15">Penetrometer 15</option>
+                <option value="penetrometer 17">Penetrometer 17</option>
+                <option value="penetrometer 20">Penetrometer 20</option>
+                <option value="penetrometer 25">Penetrometer 25</option>
+                <option value="penetrometer 30">Penetrometer 30</option>
+                <option value="penetrometer 35">Penetrometer 35</option>
+                <option value="penetrometer 40">Penetrometer 40</option>
+                <option value="penetrometer 45">Penetrometer 45</option>
+                <option value="penetrometer 50">Penetrometer 50</option>
+ 
+              </select>
+            </form> 
+            </div>
+            <div class="selection-wrapper weld-selection-wrapper">
+              <h2>Select Weld type</h2>
+              <form
+                action="/main"
+                id="weld-form"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <select name="weld-type" id="weld-select" class="selector">
+                  <option value="normal">Normal</option>
+                  <option value="tungsten">Tungsten</option>
+                </select>
+              </form>
+            </div>
+          </div>
+          <div class="block process-reset-buttons">
+            <div class="button-loader-wrapper process-wrapper">
+              <div class="button process-button " id="process-button">Process</div>
+              <div class="spinner process-spinner" id="process-spinner"></div>
+            </div>
+            <div class="button-loader-wrapper reset-wrapper">
+              <div class="button reset-button disabled" id="reset-button">Reset</div>
+              <div class="spinner reset-spinner" id="reset-spinner"></div>
+            </div>
+          </div>
+          <div class="block info" id="info">
+            <div class="info-content">
+              <div class="property-wrapper filename-wrapper">
+                <h3>Filename:</h3>
+                <p id="filename"></p>
+              </div>
+              <div class="defect-info-wrapper" id="defect-info-wrapper">
+                <div class="property-wrapper defect-description" id="defect-description">
+              </div>
+              <div class="property-wrapper rounded-wrapper" id="rounded-wrapper">
+                <h3>Rounded:</h3>
+                <p id="rounded"></p>
+              </div>
+              <div class="property-wrapper linear-wrapper" id="linear-wrapper">
+                <h3>Linear:</h3>
+                <p id="linear"></p>
+              </div>
+              <div class="property-wrapper direction-wrapper" id="direction-wrapper">
+                <h3>Direction:</h3>
+                <p id="direction"></p>
+              </div>
+              <div id="defect-table-wrapper">
+                <table border="0" id="defect-table">
+                  <tr>
+                    <th>S.No</th>
+                    <th>Defect length(mm)</th>
+                  </tr>
+                </table>
+              </div>
+              
+              </div>
+              
+            </div>
+            <div class="editor-button" id="edit-button">
+              Edit
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          Powered by dcmdatalabs
+        </div>
+      </div>
+      <div class="content-container">
+        <div class="title">
+          <h1>Automatic Defect Recognition System (ADRS)</h1>
+        </div>
+        <div class="images">
+          <div class="img-content src-img">
+            <img src="" alt=""  id="src-img"/>
+          </div>
+          <div class="img-content dst-img" >
+            <img src="" alt="" id="dst-img"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-modal" id="bg-modal">
+      <div class="img-editor-panel">
+        <div class="img-panels">
+          <div class="canvas" id="canvas">
+            <img src="" alt="" id="orig-img" />
+          </div>
+          <div class="canvas" id="canvas1">
+            <img src="" alt="" id="processed-img" />
+          </div>
+        </div>
+        <div class="brightness-contrast-panel">
+          <div class="control-wrapper brightness-wrapper">
+            <div class="adjustment-button minus-button" id="minus-brightness">-</div> 
+            <div class="adjustment-label" id="default-brightness">brightness</div>
+            <div class="adjustment-button plus-button" id="plus-brightness">+</div>
+          </div>
+          <div class="control-wrapper contrast-wrapper">
+              <div class="adjustment-button minus-button" id="minus-contrast">-</div>
+            <div class="adjustment-label" id="default-contrast">contrast</div>
+            <div class="adjustment-button plus-button" id="plus-contrast">+</div>
+          </div>
+          <div class="control-wrapper button-wrapper">
+              <div class="panel-button default-button" id="default-button">Default zoom</div>
+              <div class="panel-button exit-button" id="exit-button">Exit</div>
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/js/main.js"></script>
+  </body>
+</html>
